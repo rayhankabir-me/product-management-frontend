@@ -26,38 +26,20 @@ export default function CreateProduct() {
     setPrice(e.target.value);
   };
 
-  //   const handleSubmit = (e: SyntheticEvent) => {
-  //     e.preventDefault();
-  //     if (!title || !description || !image || !price) {
-  //       console.log(title, description, image, price);
-  //       setError("All fields are required");
-  //     } else {
-  //       try {
-  //         postData();
-  //         setError("user created successfully");
-  //       } catch (e: any) {
-  //         setError(e);
-  //       }
-  //       setTitle("");
-  //       setDescription("");
-  //       setImage("");
-  //       setPrice("");
-  //     }
-  //   };
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!title || !description || !image || !price) {
       setError("All fields are required");
     } else {
       try {
-        await postData(); // Await the postData function call
-        setError("Product created successfully"); // Set success message
-        setTitle(""); // Clear input fields
+        await postData();
+        setError("Product created successfully");
+        setTitle("");
         setDescription("");
         setImage("");
         setPrice("");
       } catch (error) {
-        setError(error.response.data.message); // Handle error response from server
+        setError(error.response.data.message);
       }
     }
   };
