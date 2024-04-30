@@ -15,19 +15,19 @@ export default async function Courses() {
             className="max-w-sm w-full sm:w-1/2 lg:w-1/3 p-4"
           >
             <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="#">
+              <Link href={"/products/" + product.id}>
                 <img
                   className="rounded-t-lg"
                   src="https://via.assets.so/img.jpg?w=1280&h=800&tc=blue&bg=#cecece&t=Course Image"
                   alt=""
                 />
-              </a>
+              </Link>
               <div className="p-5">
-                <a href="#">
+                <Link href={"/products/" + product.id}>
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {product.title}
                   </h5>
-                </a>
+                </Link>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   {product.description}
                 </p>
