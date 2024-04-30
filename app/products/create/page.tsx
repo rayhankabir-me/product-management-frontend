@@ -26,22 +26,39 @@ export default function CreateProduct() {
     setPrice(e.target.value);
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  //   const handleSubmit = (e: SyntheticEvent) => {
+  //     e.preventDefault();
+  //     if (!title || !description || !image || !price) {
+  //       console.log(title, description, image, price);
+  //       setError("All fields are required");
+  //     } else {
+  //       try {
+  //         postData();
+  //         setError("user created successfully");
+  //       } catch (e: any) {
+  //         setError(e);
+  //       }
+  //       setTitle("");
+  //       setDescription("");
+  //       setImage("");
+  //       setPrice("");
+  //     }
+  //   };
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!title || !description || !image || !price) {
-      console.log(title, description, image, price);
       setError("All fields are required");
     } else {
       try {
-        postData();
-        setError("user created successfully");
-      } catch (e: any) {
-        setError(e);
+        await postData(); // Await the postData function call
+        setError("Product created successfully"); // Set success message
+        setTitle(""); // Clear input fields
+        setDescription("");
+        setImage("");
+        setPrice("");
+      } catch (error) {
+        setError(error.response.data.message); // Handle error response from server
       }
-      setTitle("");
-      setDescription("");
-      setImage("");
-      setPrice("");
     }
   };
 
@@ -52,12 +69,13 @@ export default function CreateProduct() {
       formData.append("description", description);
       formData.append("image", image);
       formData.append("price", price);
+
       const response = await axios.post(
         "http://localhost:3000/products/create",
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
@@ -118,7 +136,11 @@ export default function CreateProduct() {
           onChange={handleImage}
         />
 
-        <button className="block bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+        {error && <p>{error}</p>}
+        <button
+          className="block bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+          type="submit"
+        >
           Create
         </button>
       </form>
